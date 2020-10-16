@@ -34,7 +34,7 @@ export default function ButtonAppBar() {
             <Drawer />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            Потом будет название
+            Music application
           </Typography>
           <Button color="inherit">Login</Button>
         </Toolbar>
