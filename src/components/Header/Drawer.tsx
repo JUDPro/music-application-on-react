@@ -11,7 +11,7 @@ import MailIcon from '@material-ui/icons/Mail';
 
 type Anchor = 'left';
 
-export default function TemporaryDrawer() {
+export default function TemporaryDrawer() { 
   const [state, setState] = React.useState({
     left: false
   });
