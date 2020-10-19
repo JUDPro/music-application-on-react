@@ -11,12 +11,16 @@ import MailIcon from '@material-ui/icons/Mail';
 
 type Anchor = 'left';
 
-export default function TemporaryDrawer() { 
+type DrawerProps = {
+  open: boolean;
+};
+
+export default function TemporaryDrawer({open}: DrawerProps) {
   const [state, setState] = React.useState({
-    left: false
+    left: open
   });
 
-  const toggleDrawer = (anchor: Anchor, open: boolean) => (
+  const toggleDrawer = (anchor: Anchor,  open: boolean) => (
     event: React.KeyboardEvent | React.MouseEvent,
   ) => {
     if (
@@ -33,8 +37,8 @@ export default function TemporaryDrawer() {
   const list = (anchor: Anchor) => (
     <div
       role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
+      onClick={toggleDrawer(anchor, open)}
+      onKeyDown={toggleDrawer(anchor, open)}
     >
       <List>
         {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
@@ -60,8 +64,8 @@ export default function TemporaryDrawer() {
     <div>
       {([] as Anchor[]).map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
-          <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
+          <Button onClick={toggleDrawer(anchor, open)}>{anchor}</Button>
+          <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, open)}>
             {list(anchor)}
           </Drawer>
         </React.Fragment>

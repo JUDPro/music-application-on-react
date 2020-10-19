@@ -1,5 +1,9 @@
 import {createSlice, configureStore} from '@reduxjs/toolkit';
 
+type MusicSliceType = {
+    musics: string[];
+}
+
 const musicSplice = createSlice({
     name: 'musics',
     initialState: {
@@ -7,7 +11,7 @@ const musicSplice = createSlice({
     },
 
     reducers: {
-        save: (state, action) => {
+        save: (state: MusicSliceType, action) => {
             state.musics = [...state.musics, action.payload]
         },
         delete: (state, action) => {
@@ -24,4 +28,4 @@ const store = configureStore({
 });
 
 export default store;
-export const actions = musicSplice.action;
+export const actions = musicSplice.actions;
