@@ -1,4 +1,6 @@
 import React from 'react';
+import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
@@ -9,18 +11,28 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 
-type Anchor = 'left';
+const useStyles = makeStyles({
+  list: {
+    width: 250,
+  },
+  fullList: {
+    width: 'auto',
+  },
+});
 
-type DrawerProps = {
+type DrawerOpen = {
   open: boolean;
 };
 
-export default function TemporaryDrawer({open}: DrawerProps) {
+type Anchor = 'left';
+
+export default function TemporaryDrawer({open}:DrawerOpen) {
+  const classes = useStyles();
   const [state, setState] = React.useState({
-    left: open
+    left: false,
   });
 
-  const toggleDrawer = (anchor: Anchor,  open: boolean) => (
+  const toggleDrawer = (anchor: Anchor, open: boolean) => (
     event: React.KeyboardEvent | React.MouseEvent,
   ) => {
     if (
@@ -36,6 +48,7 @@ export default function TemporaryDrawer({open}: DrawerProps) {
 
   const list = (anchor: Anchor) => (
     <div
+      className={clsx(classes.list, {})}
       role="presentation"
       onClick={toggleDrawer(anchor, open)}
       onKeyDown={toggleDrawer(anchor, open)}
@@ -62,10 +75,10 @@ export default function TemporaryDrawer({open}: DrawerProps) {
 
   return (
     <div>
-      {([] as Anchor[]).map((anchor) => (
+      {(['left'] as Anchor[]).map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, open)}>{anchor}</Button>
-          <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, open)}>
+          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+          <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
             {list(anchor)}
           </Drawer>
         </React.Fragment>
